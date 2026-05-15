@@ -38,6 +38,7 @@ function shouldSkip(name: string): boolean {
   if (name === 'node_modules') return true
   if (name.endsWith('-封面Prompt.md')) return true
   if (name === 'README.md') return true
+  if (name === 'index.md') return true
   return false
 }
 
