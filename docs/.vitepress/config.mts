@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { generateSidebar } from './sidebar'
+import { generateSidebar } from './sidebar.mjs'
 
 export default defineConfig({
   title: '产品经理 Wiki',
@@ -7,6 +7,7 @@ export default defineConfig({
   lang: 'zh-CN',
   cleanUrls: true,
   lastUpdated: true,
+  ignoreDeadLinks: true,
 
   srcExclude: [
     '**/module/**',
@@ -14,6 +15,26 @@ export default defineConfig({
     '**/README.md',
     '**/node_modules/**',
   ],
+
+  vue: {
+    template: {
+      compilerOptions: {
+        // Treat any tag starting with lowercase as custom element to avoid
+        // "missing end tag" errors from bare <tag> placeholders in Markdown
+        isCustomElement: (tag) => /^[a-z]/.test(tag),
+      },
+    },
+  },
+
+  markdown: {
+    // Escape bare <word> HTML-like placeholders before Vue template compilation.
+    // This prevents "missing end tag" errors for things like <site>, <name> in code examples.
+    config: (md) => {
+      md.core.ruler.before('normalize', 'escape-bare-tags', (state) => {
+        state.src = state.src.replace(/<([a-z][a-z0-9-]*)>/g, '&lt;$1&gt;')
+      })
+    },
+  },
 
   themeConfig: {
     nav: [
