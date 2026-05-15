@@ -5,6 +5,7 @@ export default defineConfig({
   title: '产品经理 Wiki',
   description: '面向 AI 时代产品经理的通用知识库',
   lang: 'zh-CN',
+  base: '/pm-wiki/',
   cleanUrls: true,
   lastUpdated: true,
   ignoreDeadLinks: true,
