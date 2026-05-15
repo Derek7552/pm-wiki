@@ -17,16 +17,6 @@ export default defineConfig({
     '**/node_modules/**',
   ],
 
-  vue: {
-    template: {
-      compilerOptions: {
-        // Treat any tag starting with lowercase as custom element to avoid
-        // "missing end tag" errors from bare <tag> placeholders in Markdown
-        isCustomElement: (tag) => /^[a-z]/.test(tag),
-      },
-    },
-  },
-
   markdown: {
     // Escape bare <word> HTML-like placeholders before Vue template compilation.
     // This prevents "missing end tag" errors for things like <site>, <name> in code examples.
